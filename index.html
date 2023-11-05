@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Safe</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            color: white;
+            height: 10vh;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            background-color: black;
+            height: 80vh;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            color: white;
+            height: 10vh;
+        }
+
+        button {
+            padding: 15px 20px;
+            color: black;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(to bottom, #43B7E7, #4F85E8);
+            font-family: "Ubuntu";
+            font-size: 17px;
+            text-shadow: 1px 1px 1px;
+            border-radius: 15px;
+            width: 90%;
+        }
+
+        .footer-button {
+            flex: 1;
+            color: black;
+            border: 2px solid;
+            cursor: pointer;
+            background-color: #43B7E7;
+            font-family: "Ubuntu";
+            font-size: 17px;
+            text-shadow: 1px 1px 1px;
+            width: 90%;
+        }
+
+        button img {
+            width: 30px;
+            height: 30px;
+        }
+
+        h1,
+        h3,
+        label {
+            font-weight: bold;
+            color: #4F85E8;
+            font-family: "Ubuntu";
+            text-shadow: 1px 1px 1px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 16px;
+            color: white;
+            font-family: "Ubuntu";
+            text-align: center;
+            font-size: 18px;
+        }
+
+        #logo {
+            height: 90%;
+            width: 20%;
+        }
+
+        button,
+        .footer-button {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+
+        button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Form styling */
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 90%;
+            height: 80%;
+        }
+
+        label,
+        button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        textarea,
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background-color: #45a049;
+        }
+
+        /* Other stylings */
+
+
+        h3 {
+            text-align: center;
+        }
+
+        .location-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .location-buttons button {
+            flex-basis: 48%;
+        }
+
+        #ct-category {
+            display: flex;
+            align-items: center;
+        }
+
+        #ct-category label {
+            margin-right: 10px;
+        }
+
+        #ct-category select {
+            flex-grow: 1;
+        }
+
+        #ct-details,
+        #ct-time {
+            display: flex;
+            align-items: center;
+        }
+
+        #ct-details label,
+        #ct-time label {
+            margin-right: 10px;
+        }
+
+        #ct-details textarea,
+        #ct-time input {
+            flex-grow: 1;
+        }
+
+        #ct-category,
+        #ct-details,
+        #ct-time,
+        #ct-location {
+            margin-bottom: 15px;
+        }
+
+        label {
+            margin-bottom: 9px;
+        }
+
+        textarea,
+        select,
+        input {
+            margin-bottom: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <button id="search">
+            <img src="images/mag-glass.png" alt="Search"><br> Search
+        </button>
+        <img src="images/logo.png" id="logo" alt="Logo">
+        <button id="settings">
+            <img src="images/settings.png" alt="Settings"> <br> Settings
+        </button>
+    </header>
+
+    <main>
+        <h1>Recent Activity</h1>
+
+        <p>Crime reported near "Home" 27 min ago.</p>
+
+        <p>Crime reported near "Work" 1 day ago.</p>
+
+        <p>You have officially been a Stay Safe member for 30 days!</p>
+    </main>
+
+    <footer>
+        <button class="footer-button" id="home">
+            <img src="images/home.png" alt="Home"> <br>HOME
+        </button>
+        <button class="footer-button" id="report">
+            <img src="images/report.png" alt="Report"> <br>REPORT
+
+        </button>
+    </footer>
+
+
+
+</body>
+
+<script>
+    // Get report button
+    const reportBtn = document.getElementById('report');
+
+    // Get main element
+    const main = document.querySelector('main');
+
+    // Add click event listener
+    reportBtn.addEventListener('click', () => {
+
+        // Change inner HTML of main
+        main.innerHTML = `
+        
+        <form>
+            <h1>Report Crime</h1>
+
+
+            <h3>Use Current Location?</h3>
+            <div id="ct-location">
+                <div class="location-buttons">
+                    <button class="yes">Yes</button>
+                    <button class="no">No</button>
+                </div>
+
+            </div>
+
+            <div id="ct-location">
+                <label for="location">Location:</label>
+                <textarea id="location" placeholder="Enter location"></textarea>
+            </div>
+
+            <div id="ct-category">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option>Select category</option>
+                    <option>Assault</option>
+                    <option>Robbery</option>
+                    <option>Harassment</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div id="ct-details">
+                <label for="details">Details:</label>
+
+                <textarea id="details" placeholder="Enter details"></textarea>
+            </div>
+
+            <!-- Time -->
+            <div id="ct-time">
+                <label for="time">Time:</label>
+
+                <input type="text" id="time" size="30" placeholder="Enter time">
+            </div>
+
+            <button class="submit">Send Report</button>
+        </form>
+      `;
+
+    });
+</script>
+
+</html>
