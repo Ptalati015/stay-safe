@@ -112,8 +112,10 @@
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            width: 90%;
+            width: 100%;
             height: 80%;
+            overflow-y: auto;
+
         }
 
         label,
@@ -132,18 +134,7 @@
             border-radius: 4px;
         }
 
-        .submit {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
 
-        .submit:hover {
-            background-color: #45a049;
-        }
 
         /* Other stylings */
 
@@ -198,19 +189,63 @@
         }
 
         label {
-            margin-bottom: 9px;
+            margin-bottom: 5px;
         }
 
         textarea,
         select,
         input {
-            margin-bottom: 15px;
+            /* margin-bottom: 15px; */
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        textarea {
+            white-space: pre-wrap;
+        }
+
+        .submit {
+            padding: 8px 15px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #6bbee2;
+        }
+
+        #report-success {
+            text-align: center;
+            padding: 20px;
+            background: #43B7E7;
+            color: white;
+            border-radius: 4px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .submit {
+            background: linear-gradient(to bottom, #43B7E7, #4F85E8);
+            color: black;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 
 </head>
 
 <body>
+
+    <div id="report-success" class="hidden">
+        <p>Your report was submitted successfully!</p>
+    </div>
 
     <header>
         <button id="search">
@@ -223,43 +258,8 @@
     </header>
 
     <main>
-        <h1>Recent Activity</h1>
-
-        <p>Crime reported near "Home" 27 min ago.</p>
-
-        <p>Crime reported near "Work" 1 day ago.</p>
-
-        <p>You have officially been a Stay Safe member for 30 days!</p>
-    </main>
-
-    <footer>
-        <button class="footer-button" id="home">
-            <img src="images/home.png" alt="Home"> <br>HOME
-        </button>
-        <button class="footer-button" id="report">
-            <img src="images/report.png" alt="Report"> <br>REPORT
-
-        </button>
-    </footer>
-
-
-
-</body>
-
-<script>
-    // Get report button
-    const reportBtn = document.getElementById('report');
-
-    // Get main element
-    const main = document.querySelector('main');
-
-    // Add click event listener
-    reportBtn.addEventListener('click', () => {
-
-        // Change inner HTML of main
-        main.innerHTML = `
-        
-        <form>
+        <!-- form data -->
+        <form class="hidden">
             <h1>Report Crime</h1>
 
 
@@ -301,9 +301,78 @@
                 <input type="text" id="time" size="30" placeholder="Enter time">
             </div>
 
-            <button class="submit">Send Report</button>
+            <input type="button" class="submit" value="Send Report">
         </form>
-      `;
+        <!-- Default data -->
+        <div class="info">
+            <h1>Recent Activity</h1>
+
+            <p>Crime reported near "Home" 27 min ago.</p>
+
+            <p>Crime reported near "Work" 1 day ago.</p>
+
+            <p>You have officially been a Stay Safe member for 30 days!</p>
+        </div>
+    </main>
+
+    <footer>
+        <button class="footer-button" id="home">
+            <img src="images/home.png" alt="Home"> <br>HOME
+        </button>
+        <button class="footer-button" id="report">
+            <img src="images/report.png" alt="Report"> <br>REPORT
+
+        </button>
+    </footer>
+
+
+</body>
+
+<script>
+    // Get report button
+    const reportBtn = document.getElementById('report');
+
+    // Get main element
+    const main = document.querySelector('main');
+    const form = document.querySelector('form')
+    const info = document.querySelector('.info');
+    // Add click event listener
+    reportBtn.addEventListener('click', () => {
+
+        // Change inner HTML of main
+        form.classList.remove('hidden');;
+        info.classList.add('hidden');
+
+
+
+    });
+
+    const submitBtn = document.querySelector('.submit');
+
+    // Get confirmation div
+    const confirmation = document.getElementById('report-success');
+
+    submitBtn.addEventListener('click', (e) => {
+
+        form.classList.add('hidden');;
+        info.classList.remove('hidden');
+
+
+
+        setTimeout(function () {
+            // Your code to execute after a 500ms delay
+            confirmation.classList.remove('hidden');
+            setTimeout(function () {
+                // Your code to execute after a 500ms delay
+                confirmation.classList.add('hidden');
+
+
+            }, 1200);
+
+
+
+        }, 300);
+
 
     });
 </script>
