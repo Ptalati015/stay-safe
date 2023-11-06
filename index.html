@@ -284,7 +284,7 @@
             font-size: 14px;
             /* Adjust the font size to your preference */
             margin-bottom: 10px;
-           width:100px;
+            width: 100px;
 
 
             /* Add space between the input and the button */
@@ -292,7 +292,7 @@
 
         #map-search button {
             font-size: 16px;
-            width:100px;
+            width: 100px;
 
             /* Adjust the font size to your preference */
         }
@@ -305,53 +305,33 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            width: 150px;
+            height: 100px;
+
+        }
+
+
+
+        #map-legend .icon {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2px;
         }
 
         #map-legend img {
             height: 20px;
-            margin-bottom: 4px;
+            margin-right: 10px;
         }
 
         #map-legend p {
             font-size: 12px;
-            text-align: center;
         }
 
-        @media (max-width: 600px) {
-
+        @media(max-width: 500px) {
             #map-legend {
-                top: auto;
-                right: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 100px;
+                position: static;
+                transform: none;
             }
-
-        }
-
-        .icon-container {
-            display: flex;
-            justify-content: space-between;
-            /* Adjust this property to control the spacing between elements */
-            align-items: center;
-            height: 20%
-                /* Vertically center the content */
-        }
-
-        .icon-container div {
-            text-align: center;
-            /* Center text within each div */
-        }
-
-        .icon-container img {
-            max-width: 20%;
-
-            /* Adjust the maximum width of the images as needed */
-        }
-
-        .icon-container img,
-        p {
-            padding: 10px;
         }
     </style>
 
@@ -439,18 +419,20 @@
                     <button>Find Address</button>
                     <div id="map-legend">
                         <div class="icon-container">
-                            <div>
-                                <p style="color: black">Confirmed</p>
-                                <img src="https://leafletjs.com/examples/custom-icons/leaf-green.png" alt="Confirmed">
+                            <div class = "icon">
+                                <img src="https://leafletjs.com/examples/custom-icons/leaf-green.png"
+                                    alt="Green leaf image">
+                                <p style = "color: black">Confirmed</p>
                             </div>
-                            <div>
-                                <p style="color: black">Unconfirmed</p>
-                                <img src="https://leafletjs.com/examples/custom-icons/leaf-red.png" alt="Unconfirmed">
+                            <div class = "icon">
+                                <img src="https://leafletjs.com/examples/custom-icons/leaf-red.png"
+                                    alt="Red leaf image">
+                                <p style = "color: black">Uncorfirmed</p>
                             </div>
-                            <div>
-                                <p style="color: black">Current Location</p>
+                            <div class = "icon">
                                 <img src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"
-                                    alt="Current Location">
+                                    alt="Marker image">
+                                <p style = "color: black">Current Location</p>
                             </div>
                         </div>
                     </div>
