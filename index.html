@@ -357,7 +357,7 @@
 
             #map {
                 position: relative;
-                top:140px;
+                top: 140px;
 
             }
 
@@ -391,8 +391,15 @@
             <h3>Use Current Location?</h3>
             <div id="ct-location">
                 <div class="location-buttons">
-                    <button class="yes">Yes</button>
-                    <button class="no">No</button>
+                    <label>
+                        <input type="radio" name="location-option" value="Yes">
+                        Yes
+                    </label>
+
+                    <label>
+                        <input type="radio" name="location-option" value="No">
+                        No
+                    </label>
                 </div>
 
             </div>
@@ -527,58 +534,140 @@
             }, 1200);
         }, 300);
     });
+    let map;
+    let redd
+
+    function addMarker() {
+
+        // Get current position
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            // Create marker
+            const redIcon = L.icon({
+                iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34]
+            });
+
+            const marker = L.marker([position.coords.latitude, position.coords.longitude], {
+                icon: redIcon
+            }).addTo(map);
+
+            // Add popup
+            const popup = L.popup({
+                className: 'custom-popup'
+            });
+
+            marker.on('click', function (e) {
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent(`
+        <h5>Report Info</h5>
+        <h6>Status: Unconfirmed</h6>
+        <h6>Just added</h6>
+      `)
+                    .openOn(map);
+            });
+
+        });
+
+    }
+
+    let count = 1;
+    let green;
+    let red;
 
 
     // Initialize the map
     function initMap() {
-        // Create map
-        const map = L.map('map').setView([41.878, -87.6298], 13); // Set your initial map coordinates and zoom level.
-        map.on('load', () => {
-            map.setView([41.878, -87.6298], 18); // Adjust the zoom level (15 in this case) to your preference.
-        });
-        // Tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
-        }).addTo(map);
+        if (count != 5) {
+            // Create map
+            map = L.map('map').setView([41.878, -87.6298],
+                13); // Set your initial map coordinates and zoom level.
+            map.on('load', () => {
+                map.setView([41.878, -87.6298],
+                    18); // Adjust the zoom level (15 in this case) to your preference.
+            });
+            // Tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
+            }).addTo(map);
 
-        // User marker
-        const userMarker = L.marker([41.878, -87.6298]).addTo(map);
+            // User marker
+            const userMarker = L.marker([41.878, -87.6298]).addTo(map);
 
-        // Report markers
-        const greenIcon = L.icon({
-            iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-        });
+            // Report markers
+            const greenIcon = L.icon({
+                iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+            });
 
-        // Create red icon
-        const redIcon = L.icon({
-            iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34]
-        });
+            // Create red icon
+            const redIcon = L.icon({
+                iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34]
+            });
 
-        // Add markers
-        L.marker([41.6298, -87.6484], {
-            icon: greenIcon
-        }).addTo(map);
-        L.marker([40.4237, -86.9212], {
-            icon: redIcon
-        }).addTo(map);
+            // Add markers
+            green = L.marker([41.888, -87.6298], {
+                icon: greenIcon
+            }).addTo(map);
+            red = L.marker([41.868, -87.6298], {
+                icon: redIcon
+            }).addTo(map);
+        }
 
         // Info window on marker click
-        map.on('click', e => {
+        green.on('click', e => {
             const popup = L.popup({
                 className: 'custom-popup'
             }).setContent(`
             <h5>Report Info</h5>
-            <p>Lorem ipsum...</p>
+            <h6>Status: Confirmed</h6> 
+            <h5>Individual caught with a firearm</h5>
         `);
 
             popup.setLatLng(e.latlng).openOn(map);
         });
+
+        red.on('click', e => {
+            const popup = L.popup({
+                className: 'custom-popup'
+            }).setContent(`
+            <h5>Report Info</h5>
+            <h6>Status: UnConfirmed</h6> 
+            <h5>Individual caught trespassing</h5>
+        `);
+
+            popup.setLatLng(e.latlng).openOn(map);
+        });
+
+
+
+
+        const radioButtons = document.getElementsByName('location-option');
+
+        // Loop through the radio buttons to check if one of them is selected
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                if (radioButton.value == "Yes") {
+                    // The selected radio button is found
+                    console.log(radioButton.checked)
+                    console.log(`Selected option: ${radioButton.value}`);
+                    addMarker();
+                }
+
+            }
+        }
+
+        count = 5;
+
+
     }
 
     // Add an event listener for a button with the ID "search"
