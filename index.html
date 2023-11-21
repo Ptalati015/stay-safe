@@ -362,6 +362,35 @@
             }
 
         }
+
+        /* Add this to your existing styles */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown when the button is hovered */
+#settings:hover .dropdown-content {
+    display: block;
+}
+
     </style>
 
 </head>
@@ -378,8 +407,15 @@
         </button>
         <img src="images/logo.png" id="logo" alt="Logo">
         <button id="settings">
-            <img src="images/settings.png" alt="Settings"> <br> Settings
-        </button>
+    <img src="images/settings.png" alt="Settings"> <br> Settings
+    <!-- Add a new item for Bookmarks in the dropdown -->
+    <div class="dropdown-content" id="settingsDropdown">
+        <a href="#">Account</a>
+        <a href="#">Privacy</a>
+        <a href="#" id="bookmarksBtn">Bookmarks</a>
+    </div>
+
+</button>
     </header>
 
     <main>
@@ -428,10 +464,35 @@
 
             <!-- Time -->
             <div id="ct-time">
-                <label for="time">Time:</label>
+                <label for="hour">Time:</label>
+                <select id="hour" name="hour">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
 
-                <input type="text" id="time" size="30" placeholder="Enter time">
+                <select id="minute" name="minute">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+
+                <select id="amPm" name="amPm">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
             </div>
+
 
             <input type="button" class="submit" value="Send Report">
         </form>
@@ -481,6 +542,23 @@
 
             </div>
         </div>
+
+        <form class="hidden bookmark">
+            <h1>Add Bookmark</h1>
+
+            <div id="bk-name">
+                <label for="bm-name">Name:</label>
+                <textarea id="bm-name" placeholder="Enter name"></textarea>
+            </div>
+
+            <div id="bk-location">
+                <label for="bm-location">Location:</label>
+                <textarea id="bm-location" placeholder="Enter location"></textarea>
+            </div>
+
+            <input type="button" class="submit" value="Add Bookmark">
+        </form>
+
     </main>
 
     <footer>
@@ -531,7 +609,7 @@
             setTimeout(function () {
                 // Your code to execute after a 500ms delay
                 confirmation.classList.add('hidden');
-            }, 1200);
+            }, 3000);
         }, 300);
     });
     let map;
@@ -692,6 +770,82 @@
         // Show the map view
         mapView.classList.add('hidden');
     })
+
+    // Get the settings button and dropdown content
+const settingsBtn = document.getElementById('settings');
+const settingsDropdown = document.getElementById('settingsDropdown');
+const dropdownOptions = document.querySelectorAll('.dropdown-option');
+
+// Add click event listener to the document to close the dropdown when clicking outside of it
+document.addEventListener('click', function (e) {
+    if (!settingsBtn.contains(e.target) && !settingsDropdown.contains(e.target)) {
+        settingsDropdown.style.display = 'none';
+    }
+});
+
+// Toggle the dropdown when clicking the settings button
+settingsBtn.addEventListener('click', function () {
+    if (settingsDropdown.style.display === 'block') {
+        settingsDropdown.style.display = 'none';
+    } else {
+        settingsDropdown.style.display = 'block';
+    }
+});
+
+// Handle clicks on dropdown options
+dropdownOptions.forEach(function (option) {
+    option.addEventListener('click', function (e) {
+        // You can add logic here to handle clicks on specific options
+        // For now, we'll just log the clicked option to the console
+        console.log('Clicked on:', e.target.innerText);
+
+        // Close the dropdown
+        settingsDropdown.style.display = 'none';
+    });
+});
+
+// Get the bookmarks button and bookmark form
+const bookmarksBtn = document.getElementById('bookmarksBtn');
+const bookmarksForm = document.querySelector('.bookmark');
+
+// Add click event listener to the Bookmarks button
+bookmarksBtn.addEventListener('click', () => {
+    // Hide other sections and show the bookmark form
+    form.classList.add('hidden');
+    info.classList.add('hidden');
+    mapView.classList.add('hidden');
+    bookmarksForm.classList.remove('hidden');
+});
+
+// Add click event listener to the "Add Bookmark" button in the bookmark form
+// Add click event listener to the "Add Bookmark" button in the bookmark form
+const addBookmarkBtn = document.querySelector('.bookmark .submit');
+addBookmarkBtn.addEventListener('click', () => {
+    // Your code to handle bookmark submission (similar to the previous example)
+    const bookmarkName = document.getElementById('bm-name').value;
+    const bookmarkLocation = document.getElementById('bm-location').value;
+
+    // Validate that both name and location are provided
+    if (bookmarkName && bookmarkLocation) {
+        // Display the bookmark information in the main home screen under recent activity
+        const recentActivity = document.querySelector('.info');
+        const bookmarkInfo = document.createElement('p');
+        bookmarkInfo.textContent = `New Bookmark: ${bookmarkName} - ${bookmarkLocation}`;
+        recentActivity.appendChild(bookmarkInfo);
+
+        // Hide the bookmarks form
+        bookmarksForm.classList.add('hidden');
+        // Show the main home screen
+        info.classList.remove('hidden');
+    } else {
+        // Display an error message or handle the case where the user didn't provide both name and location
+    }
+});
+
+
+
+
+
 </script>
 
 </html>
