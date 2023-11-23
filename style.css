@@ -1,0 +1,386 @@
+.hidden {
+    display: none;
+}
+.text {
+    color: black;
+    font-size: 10px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    height: 10vh;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: black;
+    height: 80vh;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    height: 10vh;
+}
+
+button {
+    padding: 15px 20px;
+    color: black;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(to bottom, #43B7E7, #4F85E8);
+    font-family: "Ubuntu";
+    font-size: 17px;
+    text-shadow: 1px 1px 1px;
+    border-radius: 15px;
+    width: 90%;
+}
+
+.footer-button {
+    flex: 1;
+    color: black;
+    border: 2px solid;
+    cursor: pointer;
+    background-color: #43B7E7;
+    font-family: "Ubuntu";
+    font-size: 17px;
+    text-shadow: 1px 1px 1px;
+    width: 90%;
+}
+
+button img {
+    width: 30px;
+    height: 30px;
+}
+
+h1,
+h3,
+label {
+    font-weight: bold;
+    color: #4F85E8;
+    font-family: "Ubuntu";
+    text-shadow: 1px 1px 1px;
+    text-align: center;
+    font-size: 18px;
+}
+
+p {
+    font-size: 16px;
+    color: white;
+    font-family: "Ubuntu";
+    text-align: center;
+    font-size: 18px;
+}
+
+#logo {
+    height: 90%;
+    width: 20%;
+}
+
+button,
+.footer-button {
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Form styling */
+
+form {
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    max-height: 450px;
+    height: 80%;
+    overflow-y: auto;
+
+}
+
+label,
+button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+textarea,
+select,
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+/* Other stylings */
+
+
+h3 {
+    text-align: center;
+}
+
+.location-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.location-buttons button {
+    text-align: center;
+    flex-basis: 48%;
+}
+
+#ct-category {
+    display: flex;
+    align-items: center;
+}
+
+#ct-category label {
+    margin-right: 10px;
+}
+
+#ct-category select {
+    flex-grow: 1;
+}
+
+#ct-details,
+#ct-time {
+    display: flex;
+    align-items: center;
+}
+
+#ct-details label,
+#ct-time label {
+    margin-right: 10px;
+}
+
+#ct-details textarea,
+#ct-time input {
+    flex-grow: 1;
+}
+
+#ct-category,
+#ct-details,
+#ct-time,
+#ct-location {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+
+
+textarea,
+select,
+input {
+    /* margin-bottom: 15px; */
+    font-size: 16px;
+    padding: 8px;
+}
+
+textarea {
+    white-space: pre-wrap;
+}
+
+.submit {
+    padding: 8px 15px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #6bbee2;
+}
+
+#report-success {
+    text-align: center;
+    padding: 20px;
+    background: #43B7E7;
+    color: white;
+    border-radius: 4px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.submit {
+    background: linear-gradient(to bottom, #43B7E7, #4F85E8);
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.map-ct {
+    height: 500px;
+
+}
+
+#map-view {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+#map-search {
+    padding: 10px;
+}
+
+
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+
+    #map-search,
+    #map-legend {
+        padding: 5px;
+    }
+
+
+}
+
+#map-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100px;
+}
+
+#map-search input {
+    font-size: 14px;
+    /* Adjust the font size to your preference */
+    margin-bottom: 10px;
+    width: 100px;
+
+
+    /* Add space between the input and the button */
+}
+
+#map-search button {
+    font-size: 16px;
+    width: 100px;
+
+    /* Adjust the font size to your preference */
+}
+
+#map-legend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    height: 100px;
+
+}
+
+
+
+#map-legend .icon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+#map-legend img {
+    height: 20px;
+    margin-right: 10px;
+}
+
+#map-legend p {
+    font-size: 12px;
+}
+
+/* Mobile Styles */
+
+@media (max-width: 768px) {
+    #map-legend {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: auto;
+        /* Let the width adjust to the content */
+        max-width: 100%;
+        /* Ensure it doesn't overflow the viewport */
+        height: auto;
+        /* Let the height adjust to the content */
+        overflow-y: auto;
+        /* Add a vertical scrollbar if necessary */
+    }
+
+
+    #map-search {
+        position: fixed;
+        left: 10px;
+    }
+
+    #map {
+        position: relative;
+        top: 140px;
+
+    }
+
+}
+
+/* Add this to your existing styles */
+
+/* Dropdown Menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Display the dropdown when hovered */
+#settings:hover .dropdown-content {
+    display: block;
+}
