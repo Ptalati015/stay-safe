@@ -108,15 +108,43 @@ button img {
 form {
     max-width: 250px;
     margin: 20px auto;
+    position: relative;
+    top: 20px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
     max-height: 300px;
-    height: 80%;
+    height: auto;
     overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: thin; /* Width of the scrollbar */
+
+
 
 }
+.child-element {
+    scroll-snap-align: start; /* Or any desired alignment */
+  }
+  form::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar track */
+  }
+  
+  /* Handle */
+  form::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar handle */
+    border-radius: 4px; /* Border radius of the scrollbar handle */
+  }
+  
+  /* Handle on hover */
+  form::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color of the scrollbar handle on hover */
+  }
+
+
+/* Style for the scroll prompt */
+
+
 
 label,
 button {
