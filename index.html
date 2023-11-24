@@ -260,8 +260,18 @@
     // Add click event listener
     reportBtn.addEventListener('click', () => {
         // Change inner HTML of main
+        let category = document.querySelector("#category").value = `Select category`
+        let detail = document.querySelector("#details").value = "";
+        let location = document.querySelector("#location").value = "";
+         document.querySelector("#location").disabled = false;
 
-
+        let minute = document.querySelector("#minute").value = ``
+        let amPm = document.querySelector("#amPm").value = ''
+        let hour = document.querySelector("#hour").value = ''
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(button => {
+            button.checked = false;
+        });
         form.classList.remove('hidden');;
         info.classList.add('hidden');
         mapView.classList.add('hidden');
