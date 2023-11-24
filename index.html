@@ -81,7 +81,7 @@
 
             <div id="ct-location" class="child-element">
                 <label for="location">Location:</label>
-                <textarea id="location" placeholder="Enter location"></textarea>
+                <textarea id="location" placeholder="Enter location: 123 Main St, City, State, Country"></textarea>
             </div>
 
             <div id="ct-category" class="child-element">
@@ -232,6 +232,30 @@
     const bookmarksForm = document.querySelector('.bookmark');
     const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
 
+
+    function getcoords(address) {
+        //const address = "123 Main St, City, State, Country";
+        const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+
+        fetch(nominatimUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const latitude = data[0].lat;
+                    const longitude = data[0].lon;
+                    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+                    return [latitude, longitude];
+                } else {
+                    console.log('Error: Unable to retrieve coordinates for the address.');
+                    return undefined;
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+            });
+    }
+
     function validateForm() {
         // const location = document.getElementById('location').value;
         const category = document.getElementById('category').value;
@@ -358,6 +382,50 @@
 
     }
 
+    function addMarker_2(lat, lon) {
+        let category = document.querySelector("#category").value;
+        let hour = document.querySelector("#hour").value;
+        let minute = document.querySelector("#minute").value;
+        let amPm = document.querySelector("#amPm").value;
+        let detail = document.querySelector("#details").value;
+        // Get current position
+
+        // Create marker
+        const redIcon = L.icon({
+            iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-red.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+        });
+
+        map.setView([lat, lon]);
+
+        const marker = L.marker([lat, lon], {
+            icon: redIcon
+        }).addTo(map);
+
+        // Add popup
+        const popup = L.popup({
+            className: 'custom-popup'
+        });
+
+        marker.on('click', function (e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent(`
+        <h5>Report Info</h5>
+        <h6>Status: Unconfirmed</h6>
+       
+        <p class = "text">  Type: ${category} <br> ${detail}<br> Time: ${hour}: ${minute} ${amPm}<br></p>
+      `)
+                .openOn(map);
+        });
+
+
+
+    }
+
+
     let count = 1;
     let green;
     let red;
@@ -446,6 +514,29 @@
                     console.log(`Selected option: ${radioButton.value}`);
 
                     addMarker();
+                } else if (radioButton.value == "No") {
+                    // const address = "123 Main St, City, State, Country";
+                    let location = document.querySelector("#location").value;
+                    const nominatimUrl =
+                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+                    fetch(nominatimUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) {
+                                const latitude = data[0].lat;
+                                const longitude = data[0].lon;
+                                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                                addMarker_2(latitude, longitude)
+                            } else {
+                                console.log('Error: Unable to retrieve coordinates for the address.');
+
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Error:', error);
+                        });
+
                 }
 
             }
@@ -557,6 +648,7 @@
 
 
     });
+
 
     // Add click event listener to the "Add Bookmark" button in the bookmark form
     // Add click event listener to the "Add Bookmark" button in the bookmark form
