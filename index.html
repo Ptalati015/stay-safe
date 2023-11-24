@@ -263,7 +263,7 @@
         let category = document.querySelector("#category").value = `Select category`
         let detail = document.querySelector("#details").value = "";
         let location = document.querySelector("#location").value = "";
-         document.querySelector("#location").disabled = false;
+        document.querySelector("#location").disabled = false;
 
         let minute = document.querySelector("#minute").value = ``
         let amPm = document.querySelector("#amPm").value = ''
@@ -547,12 +547,13 @@
     // Add click event listener to the Bookmarks button
     bookmarksBtn.addEventListener('click', () => {
         // Hide other sections and show the bookmark form
-        settingsDropdown.style.display = 'none';
         settingsDropdown.classList.add('hidden');
         form.classList.add('hidden');
         info.classList.add('hidden');
         mapView.classList.add('hidden');
         bookmarksForm.classList.remove('hidden');
+        document.getElementById('bm-name').value = '';
+        document.getElementById('bm-location').value = '';
 
 
     });
