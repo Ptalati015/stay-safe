@@ -519,6 +519,8 @@
         }
     });
 
+
+
     // Toggle the dropdown when clicking the settings button
     settingsBtn.addEventListener('click', function () {
         if (settingsDropdown.style.display === 'block') {
@@ -545,6 +547,7 @@
     // Add click event listener to the Bookmarks button
     bookmarksBtn.addEventListener('click', () => {
         // Hide other sections and show the bookmark form
+        settingsDropdown.style.display = 'none';
         settingsDropdown.classList.add('hidden');
         form.classList.add('hidden');
         info.classList.add('hidden');
