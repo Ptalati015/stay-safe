@@ -377,7 +377,7 @@ button:hover {
     }
 
     #map {
-        position: relative;
+        position: fixed;
         top: 140px;
 
     }
